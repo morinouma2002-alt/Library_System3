@@ -26,6 +26,7 @@ public class SystemMain {
 		boolean found = true;
 		Member member;
 
+		//次は、どうやって　一日を動かすかをかんがえる
 		while (found) {
 			while (true) {
 				System.out.println("あなたは、生徒か先生ですか\n"
@@ -64,6 +65,7 @@ public class SystemMain {
 
 				case 1 -> member.borrow();
 				case 2 -> member.returnBook();
+				case 3 -> member.search();
 
 				case 4 -> {
 					System.out.println("利用ありがとうございました");

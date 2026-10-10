@@ -1,5 +1,7 @@
 package Member;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -84,7 +86,7 @@ public abstract class Member {
 				System.out.println(book.getName() + "を借りました");
 				book.setBorrowed();
 				bookList.add(book);//本を貯める
-				System.out.println(book.getName() + "を借りました");
+				System.out.println(book.getDueDate() + "を借りました");
 
 				return;
 			}
@@ -130,10 +132,21 @@ public abstract class Member {
 		}
 		
 		System.out.println(returnBook.getName()+"を返却します");
-		returnBook.setReturn();//返却する
+		
+		LocalDate today = LocalDate.now();                          // 今日
+		if (returnBook.getDueDate().isBefore(today)) {              // 期限が今日より前＝延滞
+		    long late = ChronoUnit.DAYS.between(returnBook.getDueDate(), today);   // 何日遅れか
+		    System.out.println(late + "日遅れています");
+		}
+
+		returnBook.setReturn();   // 判定のあとに呼ぶ（先に呼ぶと期限がnullになる）
 		
 		//抽象メソッドにしなくても、返却はただ減らすだけなので、removeする
 		bookList.remove(returnBook);
+	}
+	
+	public void search() {
+		library.memberSearch(sc);
 	}
 
 }
